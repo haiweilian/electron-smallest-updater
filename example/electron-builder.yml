@@ -1,0 +1,51 @@
+appId: com.electron.app
+productName: electron-updater-example
+afterPack: ./afterPack.js
+directories:
+  buildResources: build
+files:
+  - '!**/.vscode/*'
+  - '!src/*'
+  - '!electron.vite.config.{js,ts,mjs,cjs}'
+  - '!{.eslintignore,.eslintrc.js,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
+  - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
+  - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
+  - '!**/example/*'
+  - '!**/example-server/*'
+asar: true
+asarUnpack:
+  - resources/**
+  - node_modules/sqlite3
+win:
+  executableName: electron-updater-example
+nsis:
+  artifactName: ${name}-${version}-setup.${ext}
+  shortcutName: ${productName}
+  uninstallDisplayName: ${productName}
+  createDesktopShortcut: always
+mac:
+  entitlementsInherit: build/entitlements.mac.plist
+  extendInfo:
+    - NSCameraUsageDescription: Application requests access to the device's camera.
+    - NSMicrophoneUsageDescription: Application requests access to the device's microphone.
+    - NSDocumentsFolderUsageDescription: Application requests access to the user's Documents folder.
+    - NSDownloadsFolderUsageDescription: Application requests access to the user's Downloads folder.
+  notarize: false
+  # identity: null # export CSC_IDENTITY_AUTO_DISCOVERY=false
+dmg:
+  artifactName: ${name}-${version}.${ext}
+linux:
+  target:
+    - AppImage
+    - snap
+    - deb
+  maintainer: electronjs.org
+  category: Utility
+appImage:
+  artifactName: ${name}-${version}.${ext}
+npmRebuild: false
+publish:
+  provider: generic
+  url: http://localhost:3000/auto-updates
+electronDownload:
+  mirror: https://npmmirror.com/mirrors/electron/

@@ -1,0 +1,49 @@
+{
+  "name": "electron-smallest-updater",
+  "version": "0.0.1",
+  "description": "Electron Resources 按需最小更新、自动构建发布包及信息。",
+  "main": "./dist/index.js",
+  "types": "./dist",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "electron",
+    "electron-updater",
+    "electron-app-updater",
+    "electron-asar-updater",
+    "electron-unpacked-updater",
+    "electron-smallest-updater"
+  ],
+  "scripts": {
+    "dev": "tsc -w",
+    "build": "tsc"
+  },
+  "license": "MIT",
+  "author": "haiweilian@foxmail.com",
+  "bugs": "https://github.com/haiweilian/electron-smallest-updater/issues",
+  "homepage": "https://github.com/haiweilian/electron-smallest-updater#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haiweilian/electron-smallest-updater.git"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.10",
+    "fast-glob": "^3.3.2",
+    "fs-extra": "^11.2.0",
+    "got": "^11.0.0",
+    "semver": "^7.6.0",
+    "tiny-typed-emitter": "^2.1.0"
+  },
+  "devDependencies": {
+    "@bfehub/eslint-config-typescript": "^2.1.0",
+    "@types/adm-zip": "^0.5.5",
+    "@types/fs-extra": "^11.0.4",
+    "@types/semver": "^7.5.8",
+    "electron": "^28.2.0",
+    "electron-builder": "^24.9.1",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.4",
+    "typescript": "^5.4.2"
+  }
+}

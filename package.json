@@ -18,7 +18,7 @@
   "scripts": {
     "dev": "tsc -w",
     "build": "tsc",
-    "release": "release-it"
+    "release": "tsc && release-it"
   },
   "license": "MIT",
   "author": "haiweilian@foxmail.com",

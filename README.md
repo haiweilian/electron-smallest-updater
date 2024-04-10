@@ -52,11 +52,11 @@ exports.default = async (context) => {
 
 ### 配置
 
-| 名称      | 描述             | 默认值                                           |
-| --------- | ---------------- | ------------------------------------------------ |
-| channel   | 更新频道名称     | latest-smallest.json                             |
-| resources | 生成压缩包的资源 | \['app.asar', 'app/**', 'app.asar.unpacked/**'\] |
-| urlPrefix | 文件资源路径前缀 |                                                  |
+| 名称      | 描述             | 默认值                                               |
+| --------- | ---------------- | ---------------------------------------------------- |
+| channel   | 更新频道名称     | latest-smallest.json                                 |
+| resources | 生成压缩包的资源 | \['app.asar', 'app/\*\*', 'app.asar.unpacked/\*\*'\] |
+| urlPrefix | 文件资源路径前缀 |                                                      |
 
 ## 使用
 

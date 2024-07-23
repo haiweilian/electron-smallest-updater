@@ -177,7 +177,6 @@ export function initSmallestUpdater(mainWindow: BrowserWindow): SmallestUpdater 
 | update-not-available | 更新不可用   | (info: UpdateInfo) => void               |
 | update-downloaded    | 更新下载完成 | (event: UpdateDownloadedInfo) => void    |
 | download-progress    | 更新下载进度 | (info: ProgressInfo) => void             |
-| update-cancelled     | 更新取消     | (info: UpdateInfo) => void               |
 
 **UpdateInfo**
 

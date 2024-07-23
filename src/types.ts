@@ -52,7 +52,6 @@ export interface SmallestUpdaterEvents {
   'update-available': (info: UpdateInfo) => void
   'update-downloaded': (event: UpdateDownloadedInfo) => void
   'download-progress': (info: ProgressInfo) => void
-  'update-cancelled': (info: UpdateInfo) => void
 }
 
 export interface SmallestBuilderOptions {

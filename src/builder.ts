@@ -20,12 +20,10 @@ export async function smallestBuilder(context: AfterPackContext, options?: Small
 
   // find resources
   let resourcesPath
-  if (platform === 'win32') {
-    resourcesPath = path.join(context.appOutDir, 'resources')
-  } else if (platform === 'darwin') {
+  if (platform === 'darwin') {
     resourcesPath = path.join(context.appOutDir, `${appInfo.productName}.app`, 'Contents', 'Resources')
   } else {
-    throw new Error('todo ....')
+    resourcesPath = path.join(context.appOutDir, 'resources')
   }
 
   // write zip file

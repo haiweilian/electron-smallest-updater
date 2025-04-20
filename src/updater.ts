@@ -91,6 +91,7 @@ export class SmallestUpdater extends TypedEmitter<SmallestUpdaterEvents> {
     } else {
       this.emit('update-not-available', updateInfo)
       this.logger.info(`Update for version ${currentVersion} is not available (latest version: ${latestVersion}`)
+      return
     }
 
     this.updateInfo = updateInfo
@@ -157,9 +158,14 @@ export class SmallestUpdater extends TypedEmitter<SmallestUpdaterEvents> {
 
     // unzip
     try {
+      /**
+       * @link https://stackoverflow.com/questions/43645745/electron-invalid-package-on-unzip
+      */
+      process.noAsar = true
       this.logger.info(`Extract to ${downloadUnzipPath}`)
       const zip = new AdmZip(downloadFilePath)
       zip.extractAllTo(downloadUnzipPath, true)
+      process.noAsar = false
     } catch (error: any) {
       this.emit('error', error, `Extract error: ${error.message}`)
       this.logger.error(error.stack || error)

@@ -160,7 +160,7 @@ export class SmallestUpdater extends TypedEmitter<SmallestUpdaterEvents> {
     try {
       /**
        * @link https://stackoverflow.com/questions/43645745/electron-invalid-package-on-unzip
-      */
+       */
       process.noAsar = true
       this.logger.info(`Extract to ${downloadUnzipPath}`)
       const zip = new AdmZip(downloadFilePath)

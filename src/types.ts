@@ -16,6 +16,7 @@ export interface ProgressInfo {
   total: number
   percent: number
   transferred: number
+  bytesPerSecond: number
 }
 
 export interface UpdateDownloadedInfo extends UpdateInfo {

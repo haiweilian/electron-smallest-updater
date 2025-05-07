@@ -15,6 +15,7 @@ export class SmallestUpdater extends TypedEmitter<SmallestUpdaterEvents> {
   private logger: Logger
   private channel: string
   private publish: Publish
+  private reqOptions: Publish['options']
   private updateInfo: UpdateInfo | undefined
 
   private downloadUrl = ''
@@ -35,11 +36,12 @@ export class SmallestUpdater extends TypedEmitter<SmallestUpdaterEvents> {
     this.logger = options.logger ?? console
     this.channel = options.channel ?? 'latest-smallest.json'
     this.publish = options.publish
+    this.reqOptions = options.publish.options ?? {}
     this.autoDownload = options.autoDownload ?? true
     this.autoInstallOnAppQuit = options.autoInstallOnAppQuit ?? true
     this.forceDevUpdateConfig = options.forceDevUpdateConfig ?? false
 
-    this.downloadDir = app.getPath('userData')
+    this.downloadDir = join(app.getPath('userData'), 'SmallestUpdater')
     this.resourcesPath = process.resourcesPath
   }
 
@@ -68,9 +70,11 @@ export class SmallestUpdater extends TypedEmitter<SmallestUpdaterEvents> {
     try {
       this.emit('checking-for-update')
 
-      updateInfo = await got({
-        ...this.publish,
-        url: `${url}/${this.channel}`,
+      updateInfo = await got(`${url}/${this.channel}`, {
+        ...this.reqOptions,
+        isStream: false,
+        resolveBodyOnly: false,
+        responseType: 'text',
       }).json()
 
       if (!updateInfo?.version || !updateInfo.releaseFile) {
@@ -130,11 +134,24 @@ export class SmallestUpdater extends TypedEmitter<SmallestUpdaterEvents> {
     // download
     try {
       this.logger.info(`Download to ${downloadFilePath}`)
-      const resStream = got.stream(downloadUrl)
-      const writeStream = createWriteStream(downloadFilePath)
-      resStream.on('downloadProgress', (progress) => {
-        this.emit('download-progress', progress)
+      const resStream = got.stream(downloadUrl, {
+        ...this.reqOptions,
+        isStream: true,
       })
+      const startTime = Date.now()
+      let nextUpdate = startTime
+      resStream.on('downloadProgress', (progress) => {
+        const nowTime = Date.now()
+        if (nowTime >= nextUpdate || progress.percent >= 1) {
+          nextUpdate = nowTime + 1000
+          this.emit('download-progress', {
+            ...progress,
+            percent: progress.percent * 100,
+            bytesPerSecond: Math.round(progress.transferred / ((nowTime - startTime) / 1000)),
+          })
+        }
+      })
+      const writeStream = createWriteStream(downloadFilePath)
       await streamPipeline(resStream, writeStream)
     } catch (error: any) {
       this.emit('error', error, `Download error: ${error.message}`)

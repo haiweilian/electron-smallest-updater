@@ -15,13 +15,13 @@ export async function smallestBuilder(context: AfterPackContext, options?: Small
   const resources = options?.resources || defaultResources
   const outChannelName = options?.channel || defaultChannel
   const outChannelPath = path.join(context.outDir, outChannelName)
-  const outResourceFileName = `${appInfo.productName}-${appInfo.version}-smallest.zip`
+  const outResourceFileName = `${appInfo.name}-${appInfo.version}-smallest.zip`
   const outResourceFilePath = path.join(context.outDir, outResourceFileName)
 
   // find resources
   let resourcesPath
   if (platform === 'darwin') {
-    resourcesPath = path.join(context.appOutDir, `${appInfo.productName}.app`, 'Contents', 'Resources')
+    resourcesPath = path.join(context.appOutDir, `${appInfo.name}.app`, 'Contents', 'Resources')
   } else {
     resourcesPath = path.join(context.appOutDir, 'resources')
   }
@@ -48,7 +48,7 @@ export async function smallestBuilder(context: AfterPackContext, options?: Small
     },
     releaseDate: new Date().toISOString(),
     releaseName: `Update ${appInfo.version}`,
-    releaseNotes: `Update for version ${appInfo.version} is available`,
+    // releaseNotes: `Update for version ${appInfo.version} is available`,
   }
   await fse.writeJSON(outChannelPath, publishJSON, { spaces: 2 })
 }

@@ -1,5 +1,7 @@
 # electron-smallest-updater
 
+[更新日志](./CHANGELOG.md)
+
 用于最小更新 Electron Resources 的更新器。
 
 - 与 electron-updater 有相近的配置和用法。
@@ -33,7 +35,7 @@ exports.default = async (context) => {
 }
 ```
 
-以上配置打包后会在指定的输出目录生成 `{productName}-{version}-smallest.zip`(资源压缩包) 和 `latest-smallest.json`(更新频道文件)。然后你可以把生成内容放到文件服务器上。
+以上配置打包后会在指定的输出目录生成 `{name}-{version}-smallest.zip`(资源压缩包) 和 `latest-smallest.json`(更新频道文件)。然后你可以把生成内容放到文件服务器上。
 
 ```json
 // latest-smallest.json
@@ -46,7 +48,7 @@ exports.default = async (context) => {
   },
   "releaseDate": "2024-04-08T02:23:43.648Z",
   "releaseName": "Update 1.1.0",
-  "releaseNotes": "Update for version 1.1.0 is available"
+  // "releaseNotes": "Update for version 1.1.0 is available"
 }
 ```
 
@@ -201,5 +203,6 @@ export interface ProgressInfo {
   total: number
   percent: number
   transferred: number
+  bytesPerSecond: number
 }
 ```

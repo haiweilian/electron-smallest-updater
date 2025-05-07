@@ -1,5 +1,18 @@
 
 
+# [0.2.0](https://github.com/haiweilian/electron-smallest-updater/compare/0.1.1...0.2.0) (2025-05-07)
+
+
+### Features
+
+* optimize ([#3](https://github.com/haiweilian/electron-smallest-updater/issues/3)) ([ad8d572](https://github.com/haiweilian/electron-smallest-updater/commit/ad8d5728afe5b4feff81fd629746f03997f27541))
+
+- 修复构建包名称问题 `productName` 改为 `name`。
+- 修复 `got` 请求配置接受错误。
+- 优化更新下载目录，下载资源到 `SmallestUpdater` 独立目录。
+- 优化更新下载进度值 `percent` 改为百分值，与 electron-updater 一致。
+- 新增平均每秒下载字节大小 `bytesPerSecond`，用于计算预计剩余时间。
+
 ## [0.1.1](https://github.com/haiweilian/electron-smallest-updater/compare/0.1.0...0.1.1) (2025-04-30)
 
 

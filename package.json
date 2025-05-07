@@ -1,6 +1,6 @@
 {
   "name": "electron-smallest-updater",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Electron Resources 按需最小更新、自动构建发布包及信息。",
   "main": "./dist/index.js",
   "types": "./dist",

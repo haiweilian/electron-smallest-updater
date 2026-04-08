@@ -13,22 +13,25 @@ export function initAutoUpdater(mainWindow: BrowserWindow): void {
   autoUpdater.forceDevUpdateConfig = true
 
   // 下载进度条
-  const progressBar = new ProgressBar({
-    title: '更新',
-    text: '下载更新',
-    detail: '等待下载',
-    indeterminate: false,
-    closeOnComplete: true,
-    browserWindow: {
-      show: false,
-      modal: true,
-      parent: mainWindow
-    }
-  })
-  // @ts-expect-error
-  progressBar._window.hide()
-  // @ts-expect-error
-  progressBar._window.setProgressBar(-1)
+  let progressBar: ProgressBar
+  function createProgressBar() {
+    return new Promise<ProgressBar>((resolve) => {
+      const ins = new ProgressBar({
+        title: '更新',
+        text: '下载更新',
+        detail: '等待下载',
+        indeterminate: false,
+        closeOnComplete: false,
+        browserWindow: {
+          modal: true,
+          parent: mainWindow
+        }
+      })
+      ins.on('ready', () => {
+        resolve(ins)
+      })
+    })
+  }
 
   // 更新可用
   autoUpdater.on('update-available', (info) => {
@@ -42,12 +45,9 @@ export function initAutoUpdater(mainWindow: BrowserWindow): void {
         type: 'info',
         buttons: ['稍后更新', '立即更新']
       })
-      .then(({ response }) => {
+      .then(async ({ response }) => {
         if (response === 1) {
-          // @ts-expect-error
-          progressBar._window.show()
-          // @ts-expect-error
-          progressBar._window.setProgressBar(0)
+          progressBar = await createProgressBar()
           autoUpdater.downloadUpdate() // 手动下载更新
         }
       })
@@ -55,7 +55,7 @@ export function initAutoUpdater(mainWindow: BrowserWindow): void {
 
   // 更新不可用
   autoUpdater.on('update-not-available', () => {
-    progressBar.close()
+    console.log('[electron-updater]', '更新不可用')
   })
 
   // 下载进度
@@ -68,6 +68,7 @@ export function initAutoUpdater(mainWindow: BrowserWindow): void {
   // 下载完成
   autoUpdater.on('update-downloaded', (info) => {
     console.log('[electron-updater]', '下载完成', info)
+    progressBar.close()
     dialog
       .showMessageBox(mainWindow, {
         title: '下载完成',

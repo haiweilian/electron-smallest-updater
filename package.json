@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@bfehub/eslint-config-typescript": "^2.1.0",
-    "@release-it/conventional-changelog": "^8.0.1",
+    "@release-it/conventional-changelog": "^10.0.0",
     "@types/adm-zip": "^0.5.5",
     "@types/fs-extra": "^11.0.4",
     "@types/semver": "^7.5.8",
@@ -46,7 +46,7 @@
     "electron-builder": "^24.9.1",
     "eslint": "^8.56.0",
     "prettier": "^3.2.4",
-    "release-it": "^17.1.1",
+    "release-it": "^19.2.4",
     "typescript": "^5.4.2"
   }
 }

@@ -22,6 +22,9 @@ export async function smallestBuilder(context: AfterPackContext, options?: Small
   let resourcesPath
   if (platform === 'darwin') {
     resourcesPath = path.join(context.appOutDir, `${appInfo.name}.app`, 'Contents', 'Resources')
+    if (!(await fse.pathExists(resourcesPath))) {
+      resourcesPath = path.join(context.appOutDir, `${appInfo.productName}.app`, 'Contents', 'Resources')
+    }
   } else {
     resourcesPath = path.join(context.appOutDir, 'resources')
   }

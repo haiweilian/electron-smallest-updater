@@ -1,4 +1,11 @@
+# Changelog
 
+## [0.2.1](https://github.com/haiweilian/electron-smallest-updater/compare/0.2.0...0.2.1) (2026-04-14)
+
+
+### Bug Fixes
+
+* 修复 macOS 应用资源路径查找逻辑 ([3b4b1d8](https://github.com/haiweilian/electron-smallest-updater/commit/3b4b1d8c7ae4d89c45c1ca6b01c780c1547c4c66))
 
 # [0.2.0](https://github.com/haiweilian/electron-smallest-updater/compare/0.1.1...0.2.0) (2025-05-07)
 
